@@ -8,28 +8,41 @@ in
     (import "${home-manager}/nixos")
   ];
 
-   home-manager.users.m00k = {
-    /* The home.stateVersion option does not have a default and must be set */
+  home-manager.users.m00k = {
+    # HOME   
     home = {
       stateVersion = "23.11";
     };
-    /* Here goes the rest of your home-manager config, e.g. home.packages = [ pkgs.foo ]; */
 
-    programs.bash = {
+    #DCONF
+    dconf = {
       enable = true;
-      shellAliases = {
-        la = "ls -lha";
-        ".." = "cd ..";
-        "..." = "cd ../..";
-        "...." = "cd ../../..";
+      settings = {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+        };
       };
     };
 
-    # GIT
-    programs.git = {
-      enable = true;
-      userName = import ./.secrets/git.user.name.nix;
-      userEmail = import ./.secrets/git.user.email.nix;
-    };
+    # PROGRAMS
+    programs = {
+      # BASH
+      bash = {
+        enable = true;
+          shellAliases = {
+          la = "ls -lha";
+          ".." = "cd ..";
+          "..." = "cd ../..";
+          "...." = "cd ../../..";
+        };
+      };
+      
+	  # GIT
+	  git = {
+	    enable = true;
+	    userName = import ./.secrets/git.user.name.nix;
+	    userEmail = import ./.secrets/git.user.email.nix;
+	  };
+	};
   };
 }
