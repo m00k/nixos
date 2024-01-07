@@ -8,9 +8,9 @@
      nodejs
    ];
 
-   MG_NPM_GITHUB_READONLY_TOKEN = import ../.secrets/git.token.mg.nix
-+
-+  shellHook = ''
-+    git status
-+  '';
+   MG_NPM_GITHUB_READONLY_TOKEN = import ../.secrets/git.token.mg.npm.nix;
+
+  shellHook = ''
+    git status
+  '';
  }
