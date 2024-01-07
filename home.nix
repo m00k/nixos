@@ -12,6 +12,10 @@ in
 		# HOME   
 		home = {
 			stateVersion = "23.11";
+			packages = [
+				pkgs.xclip
+				# pkgs.wl-clipboard-x11
+			];
 		};
 
     # DCONF
