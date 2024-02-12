@@ -13,5 +13,7 @@
      chromium
      neofetch
      keybase
+     monero-gui
+     gnupg1orig
   ];
 }
