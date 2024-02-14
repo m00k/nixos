@@ -1,6 +1,8 @@
 # nixos
 
-## symlink 
+## commands
+
+### symlink 
 
 ```bash
 cd ~/workspace
@@ -8,8 +10,6 @@ git clone https://github.com/m00k/nixos.git
 cd /etc
 sudo ln -s /home/[USER]/workspace/nixos
 ```
-
-## comands
 
 ### remove old generations
 ```bash
