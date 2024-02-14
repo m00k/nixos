@@ -18,4 +18,11 @@
      monero-gui
      gnupg1orig
   ];
+
+  programs.chromium = {
+    enable = true;
+    extensions = [
+    	"eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
+    ];
+  };
 }
