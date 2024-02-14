@@ -10,9 +10,11 @@
      meld
      inkscape
      vlc
+     brave
      chromium
      neofetch
      keybase
+     exodus
      monero-gui
      gnupg1orig
   ];
