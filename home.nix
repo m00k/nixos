@@ -68,5 +68,21 @@ in
 			};
 			
 		}; # END PROGRAMS
+
+		# Desktop entriew
+		xdg.desktopEntries = {
+			exodus = {
+				name = "Exodus";
+				genericName = "Wallet";
+				comment = "Secure, manage, and trade blockchain assets.";
+				exec = "./Exodus %u";
+				terminal = false;
+				categories = ["Utility" "Network" "Finance"];
+				mimeType = ["x-scheme-handler/exodus"];
+				type = "Application";
+			};
+		};
+		# END desktop entries
+		
 	};
 }
