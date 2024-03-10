@@ -23,6 +23,7 @@
     enable = true;
     extensions = [
     	"eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
+    	"gafhhkghbfjjkeiendhlofajokpaflmk" # Lace wallet
     ];
   };
 }
