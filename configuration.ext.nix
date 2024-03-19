@@ -7,6 +7,7 @@
     brave
     chromium
     exodus
+    firefox
     git
     gnupg1orig
     inkscape
@@ -19,6 +20,7 @@
     ripgrep # rg
     vlc
     vscode
+    xclip # wl-clipboard-x11
   ];
 
   programs.chromium = {

@@ -1,1 +1,5 @@
 .secrets/
+
+# artefacts when `nixos-rebuild build-vm`
+result
+nixos.qcow2

@@ -8,24 +8,26 @@
   imports =
     [
       # Include the results of the hardware scan.
-      <nixos-hardware/framework/13-inch/7040-amd>
       ./hardware-configuration.nix
       ./hardware-configuration.ext.nix
       ./configuration.ext.nix
-      ./home.nix
     ];
+
+
+  # https://nix-community.github.io/home-manager/#ch-nix-flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.luks.devices."luks-b52cb311-4e07-41a0-91bf-fc41adee428d".device = "/dev/disk/by-uuid/b52cb311-4e07-41a0-91bf-fc41adee428d";
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos"; # Define your hostname. # TODO
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # networking.proxy.default = " http://user:password@proxy:port/ ";
+  # networking.proxy.noProxy = " 127.0 .0 .1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -89,12 +91,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.m00k = {
     isNormalUser = true;
-    description = "m00k";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-      #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
   };
 
   # Allow unfree packages
@@ -135,3 +132,4 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
+
