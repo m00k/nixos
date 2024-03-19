@@ -15,6 +15,7 @@
      micro
      monero-gui
      neofetch
+     ripgrep
      vlc
      vscode
   ];
