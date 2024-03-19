@@ -4,19 +4,19 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     micro
-     git
-     vscode
-     meld
-     inkscape
-     vlc
      brave
      chromium
-     neofetch
-     keybase
      exodus
-     monero-gui
+     git
      gnupg1orig
+     inkscape
+     keybase
+     meld
+     micro
+     monero-gui
+     neofetch
+     vlc
+     vscode
   ];
 
   programs.chromium = {
