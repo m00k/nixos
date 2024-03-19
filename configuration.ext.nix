@@ -16,6 +16,7 @@
      monero-gui
      neofetch
      ripgrep
+     virtualbox
      vlc
      vscode
   ];
