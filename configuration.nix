@@ -32,19 +32,21 @@
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
 
-  # Select internationalisation properties.
+  # Select internationalization properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_AT.UTF-8";
-    LC_IDENTIFICATION = "de_AT.UTF-8";
-    LC_MEASUREMENT = "de_AT.UTF-8";
+    LANG = "en_US.UTF-8";
+    LANGUAGE ="en_US:en";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_DK.UTF-8";
     LC_MONETARY = "de_AT.UTF-8";
-    LC_NAME = "de_AT.UTF-8";
+    LC_NAME = "en_US.UTF-8";
     LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "de_AT.UTF-8";
-    LC_TELEPHONE = "de_AT.UTF-8";
-    LC_TIME = "de_AT.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_DK.UTF-8";
   };
 
   # Enable the X11 windowing system.
