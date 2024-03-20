@@ -16,7 +16,6 @@
      monero-gui
      neofetch
      ripgrep
-     virtualbox
      vlc
      vscode
   ];
@@ -28,4 +27,8 @@
     	"gafhhkghbfjjkeiendhlofajokpaflmk" # Lace wallet
     ];
   };
+
+  # virtualisation
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 }
