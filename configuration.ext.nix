@@ -16,7 +16,7 @@
     monero-gui
     neofetch
     nixpkgs-fmt
-    ripgrep
+    ripgrep # rg
     vlc
     vscode
   ];
