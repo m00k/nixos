@@ -1,22 +1,22 @@
 /* https://nixos.wiki/wiki/Home_Manager  */
 { config, pkgs, ... }:
 let
-	home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz";
 in
 {
-	imports = [
-		(import "${home-manager}/nixos")
-	];
+  imports = [
+    (import "${home-manager}/nixos")
+  ];
 
-	home-manager.users.m00k = { lib, ... }: {
-		# HOME   
-		home = {
-			stateVersion = "23.11";
-			packages = with pkgs; [
-				xclip
-				# wl-clipboard-x11
-			];
-		};
+  home-manager.users.m00k = { lib, ... }: {
+    # HOME   
+    home = {
+      stateVersion = "23.11";
+      packages = with pkgs; [
+        xclip
+        # wl-clipboard-x11
+      ];
+    };
 
     # DCONF
     # https://nixos.org/manual/nixos/stable/#sec-gnome-gsettings-overrides
@@ -25,64 +25,64 @@ in
     dconf = {
       enable = true;
       settings = {
-      	"org/gnome/desktop/interface" = {
-      		color-scheme = "prefer-dark";
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
         };
         "org/gnome/desktop/session" = {
-					idle-delay = lib.hm.gvariant.mkUint32 1800;
+          idle-delay = lib.hm.gvariant.mkUint32 1800;
         };
         "org/gnome/settings/daemon/plugins/power" = {
-					sleep-inactive-ac-timeout = lib.hm.gvariant.mkUint32 1800;
+          sleep-inactive-ac-timeout = lib.hm.gvariant.mkUint32 1800;
         };
       };
     };
 
-		# PROGRAMS
-		programs = {
+    # PROGRAMS
+    programs = {
 
-			# BASH
-			bash = {
-				enable = true;
-				shellAliases = {
-					la = "ls -lha";
-					".." = "cd ..";
-					"..." = "cd ../..";
-					"...." = "cd ../../..";
-				};
-			};
-      
-			# GIT
-			git = {
-				enable = true;
-				userName = import ./.secrets/git.user.name.nix;
-				userEmail = import ./.secrets/git.user.email.nix;
-			};
+      # BASH
+      bash = {
+        enable = true;
+        shellAliases = {
+          la = "ls -lha";
+          ".." = "cd ..";
+          "..." = "cd ../..";
+          "...." = "cd ../../..";
+        };
+      };
 
-			# MICRO
-			micro = {
-				enable = true;
-				settings = {
-					tabsize = 2;
-					mkparents = true;
-				};
-			};
-			
-		}; # END PROGRAMS
+      # GIT
+      git = {
+        enable = true;
+        userName = import ./.secrets/git.user.name.nix;
+        userEmail = import ./.secrets/git.user.email.nix;
+      };
 
-		# Desktop entriew
-		xdg.desktopEntries = {
-			exodus = {
-				name = "Exodus";
-				genericName = "Wallet";
-				comment = "Secure, manage, and trade blockchain assets.";
-				exec = "./Exodus %u";
-				terminal = false;
-				categories = ["Utility" "Network" "Finance"];
-				mimeType = ["x-scheme-handler/exodus"];
-				type = "Application";
-			};
-		};
-		# END desktop entries
-		
-	};
+      # MICRO
+      micro = {
+        enable = true;
+        settings = {
+          tabsize = 2;
+          mkparents = true;
+        };
+      };
+
+    }; # END PROGRAMS
+
+    # Desktop entriew
+    xdg.desktopEntries = {
+      exodus = {
+        name = "Exodus";
+        genericName = "Wallet";
+        comment = "Secure, manage, and trade blockchain assets.";
+        exec = "./Exodus %u";
+        terminal = false;
+        categories = [ "Utility" "Network" "Finance" ];
+        mimeType = [ "x-scheme-handler/exodus" ];
+        type = "Application";
+      };
+    };
+    # END desktop entries
+
+  };
 }

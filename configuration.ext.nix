@@ -4,27 +4,28 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     brave
-     chromium
-     exodus
-     git
-     gnupg1orig
-     inkscape
-     keybase
-     meld
-     micro
-     monero-gui
-     neofetch
-     ripgrep
-     vlc
-     vscode
+    brave
+    chromium
+    exodus
+    git
+    gnupg1orig
+    inkscape
+    keybase
+    meld
+    micro
+    monero-gui
+    neofetch
+    nixpkgs-fmt
+    ripgrep
+    vlc
+    vscode
   ];
 
   programs.chromium = {
     enable = true;
     extensions = [
-    	"eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
-    	"gafhhkghbfjjkeiendhlofajokpaflmk" # Lace wallet
+      "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
+      "gafhhkghbfjjkeiendhlofajokpaflmk" # Lace wallet
     ];
   };
 
