@@ -8,7 +8,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, ... }:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }@attrs:
     let
       userName = "m00k"; # TODO
       hostName = "f13"; # TODO
@@ -22,6 +22,7 @@
       nixosConfigurations = {
         ${hostName} = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = attrs;
           modules = [
             # https://github.com/NixOS/nixos-hardware/blob/master/README.md#using-nix-flakes-support
             nixos-hardware.nixosModules.framework-13-7040-amd
@@ -33,7 +34,6 @@
               home-manager.useUserPackages = true;
               home-manager.users.m00k = import ./home.nix;
             }
-
           ];
         };
       };
