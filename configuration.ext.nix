@@ -12,6 +12,7 @@
     gnupg1orig
     inkscape
     keybase
+    lf
     meld
     micro
     monero-gui
