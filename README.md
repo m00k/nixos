@@ -20,10 +20,27 @@ nix-env --delete-generations 30d --profile /nix/var/nix/profiles/system # remove
 ```
 
 ```bash
+# use the previous generation
 nix-env --rollback --profile /nix/var/nix/profiles/system
-# or explicitly
+
+# use specific version
 nix-env --switch-generation 53 --profile /nix/var/nix/profiles/system # switch to generation no. 53
 nix-env --delete-generations 54 --profile /nix/var/nix/profiles/system # delete generation no. 54
+```
+
+```bash
+# remove old generations from boot menu
+nixos-rebuild boot
+```
+
+### [bootloader](https://nixos.wiki/wiki/Bootloader)
+
+```bash
+# list entries
+ll /boot/loader/entries
+
+# UEFI or Legacy boot?
+[ -d /sys/firmware/efi/efivars ] && echo "UEFI" || echo "Legacy"
 ```
 
 ### flakes
