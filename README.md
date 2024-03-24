@@ -51,6 +51,17 @@ nixos-rebuild build-vm --flake ./#hostname # build a qemu vm (don't forget to re
 ./result/bin/run-nixos-vm # run
 ```
 
+https://nixos-and-flakes.thiscute.world/nixos-with-flakes/update-the-system
+
+```bash
+# Update flake.lock
+nix flake update
+# Or replace only the specific input, such as home-manager:
+nix flake lock --update-input home-manager
+# Apply the updates
+sudo nixos-rebuild switch --flake .
+```
+
 ## troubleshooting
 
 ### qemu vm
