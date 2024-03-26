@@ -2,18 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, myConfig, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./hardware-configuration.ext.nix
-      ./configuration.ext.nix
-    ];
-
-
   # https://nix-community.github.io/home-manager/#ch-nix-flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -21,7 +12,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "f13"; # Define your hostname. # TODO
+  networking.hostName = myConfig.hostName;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -88,7 +79,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.m00k = {
+  users.users."${myConfig.userName}" = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "libvirtd" "vboxusers" ];
   };

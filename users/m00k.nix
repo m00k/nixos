@@ -1,14 +1,9 @@
-{ config, lib, ... }:
+{ config, lib, myConfig, ... }:
 
 {
-
-  # HOME
-  programs.home-manager.enable = true;
-  home = rec {
-    username = "m00k";
-    homeDirectory = "/home/${username}";
-    stateVersion = "23.11";
-  };
+  imports = [
+    ../home/home.nix
+  ];
 
   # DCONF
   # https://nixos.org/manual/nixos/stable/#sec-gnome-gsettings-overrides
@@ -47,8 +42,8 @@
     # GIT
     git = {
       enable = true;
-      userName = "m00k"; # TODO
-      userEmail = "christian.bican@gmail.com"; # TODO
+      userName = myConfig.userName;
+      userEmail = myConfig.userEmail;
     };
 
     # MICRO
@@ -75,5 +70,4 @@
       type = "Application";
     };
   };
-
 }
