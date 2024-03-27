@@ -19,77 +19,81 @@
 
   outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }@inputs:
     let
-      baseConfig = {
-        userName = "m00k";
-        userEmail = "christian.bican@gmail.com";
-        hostName = "nixos";
-        system = "x86_64-linux";
-      };
-      f13Config = baseConfig // {
-        hostName = "f13";
-      };
-      plexnConfig = f13Config // {
-        userName = "media";
-        hostName = "plexn";
-      };
-      pkgs = import nixpkgs {
-        inherit (f13Config) system;
-        config.allowUnfree = true;
-      };
+      myConfigs =
+        rec {
+          base = {
+            hostName = "nixos";
+            userName = "m00k";
+            userEmail = "christian.bican@gmail.com";
+            system = "x86_64-linux";
+          };
+          f13 = base // {
+            hostName = "f13";
+          };
+          plexn = base // {
+            userName = "media";
+            hostName = "plexn";
+          };
+        };
     in
     {
-      nixosConfigurations = {
-        ${f13Config.hostName} = nixpkgs.lib.nixosSystem {
-          inherit (f13Config) system;
-          specialArgs = {
-            inherit inputs;
-            myConfig = f13Config;
-          };
-          modules = [
-            ./system/configuration.nix
-            ./hosts/${f13Config.hostName}/configuration.ext.nix
-            ./hosts/${f13Config.hostName}/hardware-configuration.nix
-            ./hosts/${f13Config.hostName}/hardware-configuration.ext.nix
-            # https://github.com/NixOS/nixos-hardware/blob/master/README.md#using-nix-flakes-support
-            nixos-hardware.nixosModules.framework-13-7040-amd
-            # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/start-using-home-manager
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${f13Config.userName} = import ./users/${f13Config.userName}.nix;
-              home-manager.extraSpecialArgs = {
-                inherit inputs;
-                myConfig = f13Config;
+      nixosConfigurations =
+        ((myConfig: {
+          ${myConfig.hostName} =
+            nixpkgs.lib.nixosSystem
+              {
+                inherit (myConfig) system;
+                specialArgs = {
+                  inherit inputs;
+                  inherit myConfig;
+                };
+                modules = with myConfig; [
+                  ./system/configuration.nix
+                  ./hosts/${hostName}/configuration.ext.nix
+                  ./hosts/${hostName}/hardware-configuration.nix
+                  ./hosts/${hostName}/hardware-configuration.ext.nix
+                  # https://github.com/NixOS/nixos-hardware/blob/master/README.md#using-nix-flakes-support
+                  nixos-hardware.nixosModules.framework-13-7040-amd
+                  # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/start-using-home-manager
+                  home-manager.nixosModules.home-manager
+                  {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.users.${userName} = import ./users/${userName}.nix;
+                    home-manager.extraSpecialArgs = {
+                      inherit inputs;
+                      inherit myConfig;
+                    };
+                  }
+                ];
               };
-            }
-          ];
-        };
-        ${plexnConfig.hostName} = nixpkgs.lib.nixosSystem {
-          inherit (plexnConfig) system;
-          specialArgs = {
-            inherit inputs;
-            myConfig = plexnConfig;
+        }) myConfigs.f13)
+
+        //
+
+        ((myConfig: {
+          ${myConfig.hostName} = nixpkgs.lib.nixosSystem {
+            inherit (myConfig) system;
+            specialArgs = {
+              inherit inputs;
+              inherit myConfig;
+            };
+            modules = with myConfig; [
+              ./system/configuration.nix
+              ./hosts/${hostName}/configuration.ext.nix
+              ./hosts/${hostName}/hardware-configuration.nix
+              home-manager.nixosModules.home-manager # TODO: de-duplicate
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.${userName} = import ./users/${userName}.nix;
+                home-manager.extraSpecialArgs = {
+                  inherit inputs;
+                  inherit myConfig;
+                };
+              }
+            ];
           };
-          modules = [
-            ./system/configuration.nix
-            ./hosts/${f13Config.hostName}/configuration.ext.nix
-            ./hosts/${plexnConfig.hostName}/hardware-configuration.nix
-            # https://github.com/NixOS/nixos-hardware/blob/master/README.md#using-nix-flakes-support
-            nixos-hardware.nixosModules.framework-13-7040-amd
-            # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/start-using-home-manager
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${plexnConfig.userName} = import ./users/${plexnConfig.userName}.nix;
-              home-manager.extraSpecialArgs = {
-                inherit inputs;
-                myConfig = plexnConfig;
-              };
-            }
-          ];
-        };
-      };
+        }) myConfigs.plexn);
     };
 }
