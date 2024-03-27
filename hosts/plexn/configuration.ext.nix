@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, myConfig, ... }:
 
 {
   # List packages installed in system profile. To search, run:
@@ -19,5 +19,6 @@
   services.plex = {
     enable = true;
     openFirewall = true;
+    user = myConfig.userName; # https://nixos.wiki/wiki/Plex
   };
 }
