@@ -24,7 +24,7 @@ nix-env --delete-generations 30d --profile /nix/var/nix/profiles/system # remove
 nix-env --rollback --profile /nix/var/nix/profiles/system
 
 # use specific version
-nix-env --switch-generation 53 --profile /nix/var/nix/profiles/system # switch to generation no. 53
+nix-env --switch-generations 53 --profile /nix/var/nix/profiles/system # switch to generation no. 53
 nix-env --delete-generations 54 --profile /nix/var/nix/profiles/system # delete generation no. 54
 ```
 
