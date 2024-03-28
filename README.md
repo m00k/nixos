@@ -53,8 +53,6 @@ nixos-rebuild build-vm --flake ./#hostname # build a qemu vm (don't forget to re
 ./result/bin/run-username-vm # run vm (don't forget to replace _username_)
 ```
 
-``
-
 https://nixos-and-flakes.thiscute.world/nixos-with-flakes/update-the-system
 
 ```bash
