@@ -5,10 +5,27 @@
 ### symlink
 
 ```bash
-cd ~/workspace
+nix-shell -p git
+
+# inside nix-shell:
+# clone and link into /etc/nixos
+mkdir -p /home/$USER/workspace
+cd /home/$USER/workspace
 git clone https://github.com/m00k/nixos.git
 cd /etc
-sudo ln -s /home/[USER]/workspace/nixos
+sudo ln -s /home/$USER/workspace/nixos
+cd /home/$USER/workspace/nixos
+
+# build and activate
+sudo nixos-rebuild switch - -flake ./#$HOSTNAME
+```
+
+OR
+
+copy [install.nix](https://github.com/m00k/nixos/blob/f/multi-host/shells/install.nix) and run
+
+```bash
+nix-shell -p install.nix
 ```
 
 ### remove old generations
