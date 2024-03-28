@@ -30,6 +30,7 @@
                 };
                 modules = with myConfig; [
                   ./system/configuration.nix
+                  ./system/packages.nix
                   ./hosts/${hostName}/configuration.ext.nix
                   ./hosts/${hostName}/hardware-configuration.nix
                   # https://nixos-and-flakes.thiscute.world/nixos-with-flakes/start-using-home-manager
@@ -57,7 +58,7 @@
         myMkHome
           (myBaseConfig // {
             userName = "media";
-            hostName = "plexn";
+            hostName = "flixn";
           });
     };
 }

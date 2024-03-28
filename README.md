@@ -50,7 +50,7 @@ nix flakes show # list flake outputs
 nixos-rebuild dry-activate --flake ./#hostname # dry run (don't forget to replace _hostname_)
 nixos-rebuild dry-build --flake ./#hostname # dry run (don't forget to replace _hostname_)
 nixos-rebuild build-vm --flake ./#hostname # build a qemu vm (don't forget to replace _hostname_)
-./result/bin/run-nixos-vm # run
+./result/bin/run-username-vm # run vm (don't forget to replace _username_)
 ```
 
 ``

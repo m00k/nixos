@@ -1,10 +1,10 @@
-{ config, pkgs, myConfig, ... }:
+{ config, lib, pkgs, myConfig, ... }:
 
 {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+  # TODO: https://nix.dev/guides/best-practices.html#with-scopes
   environment.systemPackages = with pkgs; [
-    brave
     git
     gnupg1orig
     lf
@@ -12,13 +12,6 @@
     neofetch
     nixpkgs-fmt
     ripgrep # rg
-    vlc
     xclip # wl-clipboard-x11
   ];
-
-  services.plex = {
-    enable = true;
-    openFirewall = true;
-    user = myConfig.userName; # https://nixos.wiki/wiki/Plex
-  };
 }

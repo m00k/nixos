@@ -1,7 +1,8 @@
-{ config, lib, myConfig, ... }:
+{ config, lib, pkgs, myConfig, ... }:
 
 {
   programs.home-manager.enable = true;
+
   home = {
     username = myConfig.userName;
     homeDirectory = "/home/${myConfig.userName}";

@@ -1,37 +1,21 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, myConfig, ... }:
 
 {
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # extend system/packages here
   environment.systemPackages = with pkgs; [
-    brave
-    chromium
-    exodus
-    firefox
-    git
-    gnupg1orig
-    inkscape
-    keybase
-    lf
-    meld
-    micro
-    monero-gui
-    neofetch
-    nixpkgs-fmt
-    ripgrep # rg
-    vlc
-    vscode
-    xclip # wl-clipboard-x11
   ];
 
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
-      "gafhhkghbfjjkeiendhlofajokpaflmk" # Lace wallet
-    ];
-  };
-
   # virtualisation
-  virtualisation.virtualbox.host.enable = true;
+  virtualisation = {
+    virtualbox.host.enable = true;
+
+    vmVariant = {
+      # https://nixos.wiki/wiki/NixOS:nixos-rebuild_build-vm
+      # following configuration is added only when building VM with build-vm
+      virtualisation = {
+        memorySize = 8 * 1024;
+        cores = 4;
+      };
+    };
+  };
 }
