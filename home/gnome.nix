@@ -21,20 +21,21 @@ with lib.hm.gvariant;
       "org/gnome/settings-daemon/plugins/power" = {
         sleep-inactive-battery-timeout = mkUint32 900;
         sleep-inactive-ac-type = "suspend";
-        sleep-inactive-ac-timeout = mkUint32 1800;
+        sleep-inactive-ac-timeout = mkUint32 1200;
         power-button-action = "hibernate";
+        power-saver-profile-on-low-battery = false;
       };
       "org/gnome/desktop/peripherals/keyboard" = {
         delay = mkUint32 175;
         repeat-interval = mkUint32 18;
         repeat = true;
       };
-      "/org/gnome/desktop/sound" = {
+      "org/gnome/desktop/sound" = {
         event-sounds = false;
       };
-      # TODO:
+      # TODO: doesn't seem to work
       "org/gnome/settings-daemon/plugins/media-keys" = {
-        media-keys = "[<Super><Esc>]";
+        screensaver = "['<Super>q']";
       };
     };
   };
