@@ -7,6 +7,14 @@
     monero-gui
   ];
 
+  # TODO: phantom wallet (firefox?)
+  # TODO: only if chromium is enabled
+  programs.chromium = {
+    extensions = [
+      "gafhhkghbfjjkeiendhlofajokpaflmk" # Lace wallet
+    ];
+  };
+
   # TODO: revisit
   xdg.desktopEntries = {
     exodus = {
