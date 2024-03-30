@@ -4,7 +4,8 @@ with lib.hm.gvariant;
 {
   imports = [
     ../home/home.nix
-    ../home/browsers.nix
+    ../home/browsers
+    ../home/browsers/firefox.nix # TODO: mkOption
     ../home/editor.nix
     ../home/gnome.nix
     ../home/media.nix
