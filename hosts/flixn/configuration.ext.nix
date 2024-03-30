@@ -9,6 +9,9 @@
   environment.systemPackages = with pkgs; [
   ];
 
+  # no password when sudoing
+  security.sudo.wheelNeedsPassword = false;
+
   # virtualisation
   virtualisation = {
     vmVariant = {
