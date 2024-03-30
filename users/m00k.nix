@@ -3,7 +3,8 @@
 {
   imports = [
     ../home/home.nix
-    ../home/browsers.nix
+    ../home/browsers
+    ../home/browsers/firefox-vanilla.nix # TODO: make mkOption
     ../home/crypto.nix
     ../home/dev.nix
     ../home/editor.nix

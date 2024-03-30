@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     brave
     chromium
-    firefox # TODO: phantom wallet
   ];
 
   programs.chromium = {
