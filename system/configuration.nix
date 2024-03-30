@@ -2,25 +2,17 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, myConfig, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      <nixos-hardware/framework/13-inch/7040-amd>
-      ./hardware-configuration.nix
-      ./hardware-configuration.ext.nix
-      ./configuration.ext.nix
-      ./home.nix
-    ];
+  # https://nix-community.github.io/home-manager/#ch-nix-flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices."luks-b52cb311-4e07-41a0-91bf-fc41adee428d".device = "/dev/disk/by-uuid/b52cb311-4e07-41a0-91bf-fc41adee428d";
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = myConfig.hostName;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -33,7 +25,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
 
-  # Select internationalization properties.
+  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -87,15 +79,18 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.m00k = {
+  users.users."${myConfig.userName}" = {
     isNormalUser = true;
-    description = "m00k";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-      #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "libvirtd" "vboxusers" ];
   };
+
+  # Enable automatic login for the user.
+  # services.xserver.displayManager.autoLogin.enable = true;
+  # services.xserver.displayManager.autoLogin.user = myConfig.userName;
+
+  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  # systemd.services."getty@tty1".enable = false;
+  # systemd.services."autovt@tty1".enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -135,3 +130,4 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
+
