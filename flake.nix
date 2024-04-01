@@ -57,7 +57,7 @@
         //
         myMkHome
           (myBaseConfig // {
-            userName = "media";
+            userName = "jelly";
             hostName = "flixn";
           });
     };

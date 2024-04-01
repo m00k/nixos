@@ -33,10 +33,6 @@ with lib.hm.gvariant;
       "org/gnome/desktop/sound" = {
         event-sounds = false;
       };
-      # TODO: doesn't seem to work
-      "org/gnome/settings-daemon/plugins/media-keys" = {
-        screensaver = "['<Super>q']";
-      };
     };
   };
 }
