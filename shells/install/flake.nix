@@ -29,6 +29,7 @@
             cd /home/$USER/workspace
             git clone https://github.com/m00k/nixos.git
             echo "- symlinking into /etc/nixos..."
+            sudo rm -rf /etc/nixos
             cd /etc
             echo "symlinking into /etc/nixos"
             sudo ln -s /home/$USER/workspace/nixos
