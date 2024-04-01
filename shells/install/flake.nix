@@ -37,6 +37,10 @@
             "sudo nixos-rebuild switch - -flake ./#"$HOSTNAME
             echo -e "\ndone."
           '';
+          apps.default = {
+            type = "app";
+            program = "${self.packages.${system}.default}/bin/install";
+          };
         }
       );
 }
