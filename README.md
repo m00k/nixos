@@ -1,31 +1,37 @@
 # nixos
 
-## commands
+## install
 
-### symlink
+Execute
 
 ```bash
-nix-shell -p git
-
-# inside nix-shell:
-# clone and link into /etc/nixos
-mkdir -p /home/$USER/workspace
-cd /home/$USER/workspace
-git clone https://github.com/m00k/nixos.git
-cd /etc
-sudo ln -s /home/$USER/workspace/nixos
-cd /home/$USER/workspace/nixos
-
-# build and activate
-sudo nixos-rebuild switch - -flake ./#$HOSTNAME
+nix run github:m00k/nixos/installer#install
+# file:///home/m00k/workspace/nixos?dir=shells/install&ref=refs/heads/f/installer&rev=d958411a535571130f1ca413dd9afdfb790640ce
 ```
 
-OR
+to run the [install script](https://github.com/m00k/nixos/blob/f/multi-host/shells/install.nix).
 
-copy [install.nix](https://github.com/m00k/nixos/blob/f/multi-host/shells/install.nix) and run
+## commands
+
+### flakes
 
 ```bash
-nix-shell -p install.nix
+nix flakes show # list flake outputs
+nixos-rebuild dry-activate --flake ./#hostname # dry run (don't forget to replace _hostname_)
+nixos-rebuild dry-build --flake ./#hostname # dry run (don't forget to replace _hostname_)
+nixos-rebuild build-vm --flake ./#hostname # build a qemu vm (don't forget to replace _hostname_)
+./result/bin/run-username-vm # run vm (don't forget to replace _username_)
+```
+
+https://nixos-and-flakes.thiscute.world/nixos-with-flakes/update-the-system
+
+```bash
+# Update flake.lock
+nix flake update
+# Or replace only the specific input, such as home-manager:
+nix flake lock --update-input home-manager
+# Apply the updates
+sudo nixos-rebuild switch --flake .
 ```
 
 ### remove old generations
@@ -58,27 +64,6 @@ ll /boot/loader/entries
 
 # UEFI or Legacy boot?
 [ -d /sys/firmware/efi/efivars ] && echo "UEFI" || echo "Legacy"
-```
-
-### flakes
-
-```bash
-nix flakes show # list flake outputs
-nixos-rebuild dry-activate --flake ./#hostname # dry run (don't forget to replace _hostname_)
-nixos-rebuild dry-build --flake ./#hostname # dry run (don't forget to replace _hostname_)
-nixos-rebuild build-vm --flake ./#hostname # build a qemu vm (don't forget to replace _hostname_)
-./result/bin/run-username-vm # run vm (don't forget to replace _username_)
-```
-
-https://nixos-and-flakes.thiscute.world/nixos-with-flakes/update-the-system
-
-```bash
-# Update flake.lock
-nix flake update
-# Or replace only the specific input, such as home-manager:
-nix flake lock --update-input home-manager
-# Apply the updates
-sudo nixos-rebuild switch --flake .
 ```
 
 ## troubleshooting

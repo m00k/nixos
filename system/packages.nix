@@ -8,6 +8,7 @@
     git
     gnupg1orig
     lf
+    mktemp
     micro
     neofetch
     nixpkgs-fmt
