@@ -32,10 +32,10 @@
             sudo rm -rf /etc/nixos
             cd /etc
             echo "symlinking into /etc/nixos"
-            sudo ln -s /home/$USER/workspace/nixos
+            sudo ln -sf /home/$USER/workspace/nixos
             cd /home/$USER/workspace/nixos
             echo "- switching to new generation..."
-            "sudo nixos-rebuild switch - -flake ./#"$HOSTNAME
+            "sudo nixos-rebuild switch --flake /home/$USER/workspace/nixos#$HOSTNAME
             echo -e "\ndone."
           '';
           apps.default = {
