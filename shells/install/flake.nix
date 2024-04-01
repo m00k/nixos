@@ -21,7 +21,6 @@
             echo "WARNING: this will wipe your current /etc/nixos"
             echo -e "\nContinue? (y/N)\n"
             read -N 1 -s stop
-            #echo -e "\n"
             if [ "$stop" != "y" ]; then
             	echo "exiting without changes"
             	exit 0
