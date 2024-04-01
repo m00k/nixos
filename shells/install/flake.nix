@@ -14,7 +14,10 @@
         {
           packages.default = pkgs.writeScriptBin "install" ''
             flakes_repo="https://github.com/m00k/nixos.git"
+            workspace=/home/$USER/workspace
+
             echo "Installing nix configuration for '$USER@$HOSTNAME' from $flakes_repo"
+            echo "Creates $workspace/nixos (delete if exists) and symlinks into /etc/nixos"
             echo "WARNING: this will wipe your current /etc/nixos"
             echo -e "\nContinue? (y/N)\n"
             read -N 1 -s stop
@@ -24,18 +27,19 @@
             	exit 0
             fi
 
-            echo "- creating $USER/workspace and cloning $flakes_repo..."
-            mkdir -p /home/$USER/workspace
-            cd /home/$USER/workspace
+            echo "- creating $workspace and cloning $flakes_repo..."
+            rm -rf $workspace/nixos
+            mkdir -p $workspace
+            cd $workspace
             git clone https://github.com/m00k/nixos.git
             echo "- symlinking into /etc/nixos..."
-            sudo rm -rf /etc/nixos
             cd /etc
+            sudo rm -rf /etc/nixos
             echo "symlinking into /etc/nixos"
-            sudo ln -sf /home/$USER/workspace/nixos
-            cd /home/$USER/workspace/nixos
+            sudo ln -sf $workspace/nixos
+            cd $workspace/nixos
             echo "- switching to new generation..."
-            "sudo nixos-rebuild switch --flake /home/$USER/workspace/nixos#$HOSTNAME
+            "sudo nixos-rebuild switch --flake $workspace/nixos#$HOSTNAME
             echo -e "\ndone."
           '';
           apps.default = {
