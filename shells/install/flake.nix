@@ -39,7 +39,7 @@
             sudo ln -sf $workspace/nixos
             cd $workspace/nixos
             echo "- switching to new generation..."
-            "sudo nixos-rebuild switch --flake $workspace/nixos#$HOSTNAME
+            sudo nixos-rebuild switch --flake $workspace/nixos#$HOSTNAME
             echo -e "\ndone."
           '';
           apps.default = {
