@@ -5,7 +5,7 @@
 Execute
 
 ```bash
-nix run github:m00k/nixos/installer#install
+nix run github:m00k/nixos/f/installer?dir=shells/install
 # file:///home/m00k/workspace/nixos?dir=shells/install&ref=refs/heads/f/installer&rev=d958411a535571130f1ca413dd9afdfb790640ce
 ```
 
