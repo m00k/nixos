@@ -14,7 +14,7 @@
         {
           packages.default = pkgs.writeScriptBin "install" ''
             flakes_repo="https://github.com/m00k/nixos.git"
-            echo "Installing nix flake '$HOSTNAME' for user '$USER' from $flakes_repo"
+            echo "Installing nix configuration for '$USER@$HOSTNAME' from $flakes_repo"
             echo "WARNING: this will wipe your current /etc/nixos"
             echo -e "\nContinue? (y/N)\n"
             read -N 1 -s stop
