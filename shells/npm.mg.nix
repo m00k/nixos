@@ -1,6 +1,11 @@
 let
-  nixpkgs = fetchTarball "https://github.com/NixOS/nixpkgs/tarball/nixos-23.11";
-  pkgs = import nixpkgs { config = { }; overlays = [ ]; };
+  pkgs = import <nixpkgs> { config = { }; overlays = [ ]; };
+  # pkgsfixed = import
+  #   (fetchTarball {
+  #     url = "https://github.com/NixOS/nixpkgs/archive/[SHA].tar.gz";
+  #     sha256 = "[SHA]";
+  #   })
+  #   { };
 in
 
 pkgs.mkShell {
