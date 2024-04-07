@@ -17,10 +17,10 @@ to run the [install script](https://github.com/m00k/nixos/blob/f/multi-host/shel
 
 ```bash
 nix flakes show # list flake outputs
-nixos-rebuild dry-activate --flake ./#hostname # dry run (don't forget to replace _hostname_)
-nixos-rebuild dry-build --flake ./#hostname # dry run (don't forget to replace _hostname_)
-nixos-rebuild build-vm --flake ./#hostname # build a qemu vm (don't forget to replace _hostname_)
-./result/bin/run-username-vm # run vm (don't forget to replace _username_)
+nixos-rebuild dry-activate --flake ./#$HOSTNAME
+nixos-rebuild dry-build --flake ./#$HOSTNAME
+nixos-rebuild build-vm --flake ./#$HOSTNAME
+./result/bin/run-$USER-vm # run vm (replace $USER)
 ```
 
 https://nixos-and-flakes.thiscute.world/nixos-with-flakes/update-the-system
@@ -31,7 +31,9 @@ nix flake update
 # Or replace only the specific input, such as home-manager:
 nix flake lock --update-input home-manager
 # Apply the updates
-sudo nixos-rebuild switch --flake .
+sudo nixos-rebuild switch --flake ./#$HOSTNAME
+# Or activate only after reboot
+sudo nixos-rebuild boot --flake ./#$HOSTNAME #
 ```
 
 ### remove old generations
