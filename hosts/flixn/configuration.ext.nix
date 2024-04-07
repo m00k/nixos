@@ -23,4 +23,19 @@
       };
     };
   };
+
+  # remote desktop
+  services.xserver.enable = true;
+  services.xrdp.enable = true;
+  # services.xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm"; 
+  services.xrdp.defaultWindowManager = "gnome-session";
+  # services.xrdp.openFirewall = true;
+  networking.firewall.allowedTCPPorts = [ 3389 ];
+
+  # prevent sleep when not logged in
+  # https://discourse.nixos.org/t/stop-pc-from-sleep/5757
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
 }
