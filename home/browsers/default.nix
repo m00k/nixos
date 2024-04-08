@@ -10,6 +10,7 @@
     enable = true;
     extensions = [
       "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
+      "hdokiejnpimakedhajhdlcegeplioahd" # LastPass
     ];
   };
 }
