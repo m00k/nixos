@@ -7,6 +7,7 @@
 
   # extend system/packages here
   environment.systemPackages = with pkgs; [
+    pkgs.gnome.gnome-remote-desktop
   ];
 
   # no password when sudoing
@@ -25,12 +26,14 @@
   };
 
   # remote desktop
+  services.gnome.gnome-remote-desktop.enable = true;
   services.xserver.enable = true;
   services.xrdp.enable = true;
   # services.xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm"; 
-  services.xrdp.defaultWindowManager = "gnome-session";
+  services.xrdp.defaultWindowManager = "gnome-remote-desktop";
   # services.xrdp.openFirewall = true;
   networking.firewall.allowedTCPPorts = [ 3389 ];
+  networking.firewall.allowedUDPPorts = [ 3389 ];
 
   # prevent sleep when not logged in
   # https://discourse.nixos.org/t/stop-pc-from-sleep/5757
