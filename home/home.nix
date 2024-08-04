@@ -6,6 +6,6 @@
   home = {
     username = myConfig.userName;
     homeDirectory = "/home/${myConfig.userName}";
-    stateVersion = "23.11";
+    stateVersion = "24.05";
   };
 }
