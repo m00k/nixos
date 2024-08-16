@@ -10,6 +10,7 @@
         nixpkgs.lib.genAttrs allSystems
           (system: fn { pkgs = import nixpkgs { inherit system; }; });
 
+      # WARNING: impure file access
       shellHook = ''
         source ~/workspace/nixos/.secrets/git.token.mg.npm.sh
         git status
