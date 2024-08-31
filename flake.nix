@@ -12,10 +12,11 @@
     let
       myBaseConfig =
         {
-          hostName = "nixos";
+          hostName = "f13";
           userName = "m00k";
           userEmail = "christian.bican@gmail.com";
           system = "x86_64-linux";
+          systemStateVersion = "23.11";
         };
       # TODO: extract to lib
       myMkHome = myConfig:
@@ -51,14 +52,20 @@
     {
       nixosConfigurations =
         myMkHome
-          (myBaseConfig // {
-            hostName = "f13";
-          })
+          (myBaseConfig)
         //
         myMkHome
           (myBaseConfig // {
             userName = "jelly";
             hostName = "flixn";
+          })
+        //
+        myMkHome
+          (myBaseConfig // {
+            userName = "christian";
+            userEmail = "christian.bican@marktguru.com";
+            hostName = "worxn";
+            systemStateVersion = "24.05";
           });
     };
 }
