@@ -37,9 +37,9 @@
             echo "symlinking into /etc/nixos"
             sudo ln -sf $workspace/nixos
             cd $workspace/nixos
-            echo "- switching to new generation..."
-            sudo nixos-rebuild switch --flake $workspace/nixos#$HOSTNAME
-            echo -e "\ndone."
+            echo "- rebuilding..."
+            sudo nixos-rebuild boot --flake $workspace/nixos#$HOSTNAME
+            echo -e "\ndone. please reboot your system"
           '';
           apps.default = {
             type = "app";
