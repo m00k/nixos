@@ -2,6 +2,14 @@
 
 ## install
 
+Preconditions:
+
+- on the target machine set `networking.hostName` in `configuration.nix` to correspond w/ a host name from the flake
+- `git` needs to be available, install or use `nix-shell -p git`
+- you'll probably need to provide `--extra-experimental-features nix-command --extra-experimental-features flakes` args
+
+**TODO**: `install` script internally always uses the flake from the master branch -> make configurable
+
 Execute
 
 ```bash
