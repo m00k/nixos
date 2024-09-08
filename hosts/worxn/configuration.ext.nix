@@ -3,6 +3,10 @@
 {
   # extend system/packages here
   environment.systemPackages = with pkgs; [
+    micro
+    google-chrome
+    slack
+    libreoffice
   ];
 
   # no password when sudoing
