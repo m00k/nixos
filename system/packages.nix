@@ -14,5 +14,8 @@
     nixpkgs-fmt
     ripgrep # rg
     xclip # wl-clipboard-x11
+    psmisc
+    wget
+    traceroute
   ];
 }
