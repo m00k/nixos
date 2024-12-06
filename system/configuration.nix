@@ -59,7 +59,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  # sound.enable = true; # disabled with 24.11.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
