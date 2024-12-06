@@ -20,7 +20,7 @@ with lib.hm.gvariant;
       };
       "org/gnome/settings-daemon/plugins/power" = {
         sleep-inactive-battery-timeout = mkUint32 900;
-        sleep-inactive-ac-type = "suspend";
+        sleep-inactive-ac-type = "nothing";
         sleep-inactive-ac-timeout = mkUint32 1200;
         power-button-action = "hibernate";
         power-saver-profile-on-low-battery = false;
