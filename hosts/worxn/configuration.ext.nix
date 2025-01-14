@@ -8,6 +8,7 @@
     slack
     libreoffice
     azure-functions-core-tools
+    nodejs_22
   ];
 
   # no password when sudoing
