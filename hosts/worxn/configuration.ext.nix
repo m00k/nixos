@@ -7,7 +7,6 @@
     google-chrome
     slack
     libreoffice
-    azure-functions-core-tools
   ];
 
   # no password when sudoing

@@ -41,7 +41,7 @@ nix flake lock --update-input home-manager
 # Apply the updates
 sudo nixos-rebuild switch --flake ./#$HOSTNAME
 # Or activate only after reboot
-sudo nixos-rebuild boot --flake ./#$HOSTNAME
+sudo nixos-rebuild boot --flake ./#$HOSTNAME #
 ```
 
 ### remove old generations
