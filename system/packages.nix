@@ -17,5 +17,7 @@
     psmisc
     wget
     traceroute
+    unzip
+    zip
   ];
 }

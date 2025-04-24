@@ -38,6 +38,12 @@
           ];
           shellHook = shellHook;
         };
+        "23" = pkgs.mkShell {
+          packages = with pkgs; [
+            nodejs_23
+          ];
+          shellHook = shellHook;
+        };
         default = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_22
