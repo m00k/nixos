@@ -19,5 +19,6 @@
     traceroute
     unzip
     zip
+    nixpkgs-fmt
   ];
 }
