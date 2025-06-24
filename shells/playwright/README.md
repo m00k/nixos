@@ -1,6 +1,6 @@
 # Playwright flake
 
-Due to the nature of NixOS special folder structure [Playwright](https://playwright.dev/) needs to be pointed at the location of installed browsers. This is the purpose of a nix package called `playwright-driver.browsers`. The flake installs this package and sets an environment variable `PLAYWRIGHT_BROWSERS_PATH`:
+Due to the nature of NixOS's special folder structure [Playwright](https://playwright.dev/) needs to be pointed at the location of installed browsers. This is the purpose of a nix package called `playwright-driver.browsers`. The flake installs this package and sets an environment variable `PLAYWRIGHT_BROWSERS_PATH`:
 
 ```bash
 [me@mymachine:~/workspace/projects/project]$ echo $PLAYWRIGHT_BROWSERS_PATH

@@ -1,5 +1,5 @@
 {
-  inputs = { nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11"; };
+  inputs = { nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05"; };
 
   outputs = { self, nixpkgs }:
     let
@@ -41,6 +41,12 @@
         "23" = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_23
+          ];
+          shellHook = shellHook;
+        };
+        "24" = pkgs.mkShell {
+          packages = with pkgs; [
+            nodejs_24
           ];
           shellHook = shellHook;
         };
