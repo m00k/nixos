@@ -9,6 +9,7 @@
     libreoffice
     azure-functions-core-tools
     nodejs_22
+    wireguard-tools
   ];
 
   # no password when sudoing
@@ -31,4 +32,30 @@
       };
     };
   };
+
+  # WireGuard
+  # https://nixos.wiki/wiki/WireGuard
+  # sudo systemctl list-units *wg0*
+  # sudo wg
+  # sudo wg showconf wg0
+  # manually start/stop (up/down) using a config file:
+  # sudo wg-quick up /etc/nixos/wg0.conf
+networking.wg-quick.interfaces = {
+  wg0 = {
+    address = [ "10.111.108.13/32" ];
+    privateKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.privateKey.nix";
+    mtu = 1420;
+    dns = [ "1.1.1.1" ];
+    
+    peers = [
+      {
+        publicKey = "jXLA+/Cs+/p3henZM/HQjr4JQQtjepQe90ELppIJPmM=";
+        presharedKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.peers.presharedKey.nix";
+        allowedIPs = [ "0.0.0.0/0" ];
+        endpoint = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.peers.endpoint.nix";
+        persistentKeepalive = 21;
+      }
+    ];
+  };
+};
 }
