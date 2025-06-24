@@ -6,7 +6,7 @@
   # TODO: https://nix.dev/guides/best-practices.html#with-scopes
   environment.systemPackages = with pkgs; [
     git
-    gnupg1orig
+    gnupg
     lf
     mktemp
     micro
