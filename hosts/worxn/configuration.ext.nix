@@ -52,7 +52,7 @@ networking.wg-quick.interfaces = {
         publicKey = "jXLA+/Cs+/p3henZM/HQjr4JQQtjepQe90ELppIJPmM=";
         presharedKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.peers.presharedKey.nix";
         allowedIPs = [ "0.0.0.0/0" ];
-        endpoint = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.peers.endpoint.nix";
+        endpoint = builtins.readFile "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.peers.endpoint.nix";
         persistentKeepalive = 21;
       }
     ];

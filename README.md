@@ -42,6 +42,8 @@ nix flake lock --update-input home-manager
 sudo nixos-rebuild switch --flake ./#$HOSTNAME
 # Or activate only after reboot
 sudo nixos-rebuild boot --flake ./#$HOSTNAME
+# Use --impure to escape pure evaluation mode (e.g. loading variables from files)
+sudo nixos-rebuild boot --flake ./#$HOSTNAME --impure
 ```
 
 ### remove old generations
