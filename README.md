@@ -61,6 +61,15 @@ nix-env --rollback --profile /nix/var/nix/profiles/system
 # use specific version
 nix-env --switch-generation 53 --profile /nix/var/nix/profiles/system # switch to generation no. 53
 nix-env --delete-generations 54 --profile /nix/var/nix/profiles/system # delete generation no. 54
+nix-env --delete-generations {51..54} --profile /nix/var/nix/profiles/system # delete generation no. 51 through 54
+```
+
+```bash
+# garbage collect unused packages
+sudo nix-collect-garbage
+# OR aggressively
+# delete everything but last
+sudo nix-collect-garbage -d
 ```
 
 ```bash
