@@ -10,6 +10,7 @@
     azure-functions-core-tools
     nodejs_22
     wireguard-tools
+    github-copilot-cli
   ];
 
   # no password when sudoing
