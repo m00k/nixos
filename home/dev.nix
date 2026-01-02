@@ -10,7 +10,9 @@
 
   programs.git = {
     enable = true;
-    userName = myConfig.userName;
-    userEmail = myConfig.userEmail;
+    settings = {
+      user.name = myConfig.userName;
+      user.email = myConfig.userEmail;
+    };
   };
 }
