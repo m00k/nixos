@@ -6,8 +6,6 @@
     inkscape
     meld
     vscode
-    claude-code
-    gemini-cli
   ];
 
   programs.git = {
