@@ -26,6 +26,8 @@
 
   # remote desktop
   services.gnome.gnome-remote-desktop.enable = true;
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = myConfig.userName;
   networking.firewall.allowedTCPPorts = [ 3389 ];
 
   # prevent sleep when not logged in
