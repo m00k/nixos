@@ -44,7 +44,6 @@
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
-  services.displayManager.wayland.enable = true;
   services.desktopManager.gnome.enable = true;
 
   # Ensure X11 is officially OFF (NixOS 25.11)
