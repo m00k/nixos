@@ -25,7 +25,11 @@
   };
 
   # remote desktop
-  services.gnome.gnome-remote-desktop.enable = true;
+  services.xserver.enable = true;
+  services.xrdp.enable = true;
+  # services.xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm"; 
+  services.xrdp.defaultWindowManager = "gnome-session";
+  # services.xrdp.openFirewall = true;
   networking.firewall.allowedTCPPorts = [ 3389 ];
 
   # prevent sleep when not logged in
