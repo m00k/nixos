@@ -42,18 +42,22 @@
     LC_TIME = "en_DK.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
+  services.displayManager.wayland.enable = true;
   services.desktopManager.gnome.enable = true;
 
-  # Configure keymap in X11
+  # Ensure X11 is officially OFF (NixOS 25.11)
+  services.xserver.enable = false;
+
+  # Keyboard Layout (legacy xserver became sort of catch-all in NixOS and is used even with X11 off)
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
+
+  # Sync TTY (console) w/ keyboard choice
+  console.luseXkbConfig = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
