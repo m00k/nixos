@@ -7,6 +7,7 @@
   environment.systemPackages = with pkgs; [
     git
     gnupg
+    inetutils
     lf
     mktemp
     micro
@@ -19,6 +20,5 @@
     traceroute
     unzip
     zip
-    nixpkgs-fmt
   ];
 }
