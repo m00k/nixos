@@ -42,6 +42,9 @@
     LC_TIME = "en_DK.UTF-8";
   };
 
+  # If this isn't enabled, the system "forgets" your password every time the session restarts or the lease expires
+  services.gnome.gnome-keyring.enable = true;
+
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
