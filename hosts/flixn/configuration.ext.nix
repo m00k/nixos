@@ -30,7 +30,8 @@
   # services.xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm"; 
   services.xrdp.defaultWindowManager = "gnome-session";
   # services.xrdp.openFirewall = true;
-  networking.firewall.allowedTCPPorts = [ 3389 ];
+  networking.firewall.allowedTCPPorts = [ 3389 3390 ];
+  networking.firewall.allowedUDPPorts = [ 3389 3390 ];
 
   # prevent sleep when not logged in
   # https://discourse.nixos.org/t/stop-pc-from-sleep/5757
