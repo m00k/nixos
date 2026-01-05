@@ -57,7 +57,7 @@
   };
 
   # Sync TTY (console) w/ keyboard choice
-  console.luseXkbConfig = true;
+  console.useXkbConfig = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
