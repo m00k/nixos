@@ -49,9 +49,6 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
-  # Ensure X11 is officially OFF (NixOS 25.11)
-  services.xserver.enable = false;
-
   # Keyboard Layout (legacy xserver became sort of catch-all in NixOS and is used even with X11 off)
   services.xserver.xkb = {
     layout = "us";
