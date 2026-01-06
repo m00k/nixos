@@ -26,7 +26,7 @@
 
   ### Remote Desktop ###
   # 1. Enable GNOME and the Remote Desktop service
-  services.xserver.desktopManager.gnome.enable = true;
+  # base configuration.nix: services.desktopManager.gnome.enable = true; 
   services.gnome.gnome-remote-desktop.enable = true;
 
   # 2. Ensure the service starts at boot (not just when logged in)
