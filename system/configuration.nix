@@ -19,8 +19,10 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+  ### Enable networking
+  networking.networkmanager = {
+    enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -42,8 +44,6 @@
     LC_TIME = "en_DK.UTF-8";
   };
 
-  # If this isn't enabled, the system "forgets" your password every time the session restarts or the lease expires
-  services.gnome.gnome-keyring.enable = true;
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
