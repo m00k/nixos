@@ -25,6 +25,7 @@
   };
 
   ### Remote Desktop ###
+  
   # 1. Enable GNOME and the Remote Desktop service
   # base configuration.nix: services.desktopManager.gnome.enable = true; 
   services.gnome.gnome-remote-desktop.enable = true;
@@ -39,7 +40,10 @@
   # 4. Disable auto-login to prevent session conflicts
   services.displayManager.autoLogin.enable = false;
 
-  # Note: After applying this, you must log in locally once to Settings > Sharing > Remote Desktop to set your username and password for the RDP connection.
+  # Note: After applying this, you must log in locally once to 
+  # Settings > System > Remote Desktop > Remote Login tab
+  # to set your username and password for the RDP connection.
+
   ### Remote Desktop End ###
 
   # prevent sleep when not logged in
