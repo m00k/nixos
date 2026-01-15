@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     keybase
     monero-gui
+    eigenwallet
   ];
 
   # TODO: only if chromium is enabled
