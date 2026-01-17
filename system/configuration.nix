@@ -110,6 +110,12 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  # Enable the GPG Agent
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses; # Use 'pinentry-qt' if you prefer a GUI popup
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 
