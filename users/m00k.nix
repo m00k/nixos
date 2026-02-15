@@ -11,5 +11,6 @@
     ../home/gnome.nix
     ../home/media.nix
     ../home/shell.nix
+    ../home/tools.nix
   ];
 }
