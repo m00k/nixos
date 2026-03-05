@@ -1,8 +1,8 @@
-{ config, lib, pkgs, myConfig, ... }:
+{ config, lib, pkgs, pkgs-unstable, myConfig, ... }:
 
 {
   # extend system/packages here
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     micro
     google-chrome
     slack
@@ -10,9 +10,10 @@
     azure-functions-core-tools
     nodejs_22
     wireguard-tools
-    claude-code
     gemini-cli
-  ];
+  ]) ++ (with pkgs-unstable; [
+    claude-code
+  ]);
 
   # no password when sudoing
   security.sudo.wheelNeedsPassword = false;

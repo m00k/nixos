@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11"; # TODO: "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master"; # TODO: "github:NixOS/nixos-hardware";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11"; # TODO: "github:nix-community/home-manager";
@@ -8,7 +9,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, ... } @ inputs:
     let
       myBaseConfig =
         {
@@ -28,6 +29,10 @@
                 specialArgs = {
                   inherit inputs;
                   inherit myConfig;
+                  pkgs-unstable = import nixpkgs-unstable {
+                    inherit (myConfig) system;
+                    config.allowUnfree = true;
+                  };
                 };
                 modules = with myConfig; [
                   ./system/configuration.nix
