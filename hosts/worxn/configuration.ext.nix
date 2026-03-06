@@ -10,9 +10,9 @@
     azure-functions-core-tools
     nodejs_22
     wireguard-tools
-    gemini-cli
   ]) ++ (with pkgs-unstable; [
     claude-code
+    gemini-cli
   ]);
 
   # no password when sudoing
