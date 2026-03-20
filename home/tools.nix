@@ -3,5 +3,6 @@
 {
   home.packages = with pkgs; [
     sweethome3d.application
+    blender
   ];
 }
