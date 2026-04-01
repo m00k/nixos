@@ -21,6 +21,13 @@
         };
       # TODO: extract to lib
       myMkHome = myConfig:
+        let
+          # Define it here so both NixOS and Home Manager can see it
+          pkgs-unstable = import nixpkgs-unstable {
+            inherit (myConfig) system;
+            config.allowUnfree = true;
+          };
+        in
         {
           ${myConfig.hostName} =
             nixpkgs.lib.nixosSystem
@@ -29,10 +36,7 @@
                 specialArgs = {
                   inherit inputs;
                   inherit myConfig;
-                  pkgs-unstable = import nixpkgs-unstable {
-                    inherit (myConfig) system;
-                    config.allowUnfree = true;
-                  };
+                  inherit pkgs-unstable;
                 };
                 modules = with myConfig; [
                   ./system/configuration.nix
@@ -48,6 +52,7 @@
                     home-manager.extraSpecialArgs = {
                       inherit inputs;
                       inherit myConfig;
+                      inherit pkgs-unstable;
                     };
                   }
                 ];
