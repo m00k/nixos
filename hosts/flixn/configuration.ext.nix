@@ -25,7 +25,7 @@
   };
 
   ### Remote Desktop ###
-  
+
   # 1. Enable GNOME and the Remote Desktop service
   # base configuration.nix: services.desktopManager.gnome.enable = true; 
   services.gnome.gnome-remote-desktop.enable = true;

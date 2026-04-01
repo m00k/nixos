@@ -1,9 +1,13 @@
-{ config, lib, pkgs, myConfig, ... }:
+{ config, lib, pkgs, pkgs-unstable, myConfig, ... }:
 
 {
   # extend system/packages here
-  environment.systemPackages = with pkgs; [
-  ];
+  environment.systemPackages = (with pkgs; [
+  ]) ++ (with pkgs-unstable; [
+    claude-code
+    gemini-cli
+  ]);
+
 
   # no password when sudoing
   security.sudo.wheelNeedsPassword = false;
