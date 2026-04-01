@@ -25,7 +25,12 @@
           # Define it here so both NixOS and Home Manager can see it
           pkgs-unstable = import nixpkgs-unstable {
             inherit (myConfig) system;
-            config.allowUnfree = true;
+            config = {
+              allowUnfree = true;
+              permittedInsecurePackages = [
+                "openclaw-2026.3.12"
+              ];
+            };
           };
         in
         {

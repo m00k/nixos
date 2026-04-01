@@ -6,6 +6,7 @@
   ]) ++ (with pkgs-unstable; [
     claude-code
     gemini-cli
+    openclaw # see permittedInsecurePackages in flake.nix
   ]);
 
 
