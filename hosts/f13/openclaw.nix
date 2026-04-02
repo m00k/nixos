@@ -53,12 +53,38 @@ in
         User = "openclaw";
         Group = "openclaw";
 
-        # NixOS Hardening
-        StateDirectory = "openclaw";
-        ReadWritePaths = [ workspacePath ];
+        # --- Advanced Hardening & Folder Restriction ---
+
+        # 1. Start with a completely empty filesystem view
         ProtectSystem = "strict";
-        ProtectHome = true;
+        ProtectHome = "tmpfs"; # Hides /home entirely, even from the 'openclaw' user
+
+        # 2. Grant access ONLY to specific paths
+        StateDirectory = "openclaw"; # Creates and grants RW to /var/lib/openclaw
+        ReadWritePaths = [ workspacePath ];
+
+        # 3. Necessary for the binary to run and make HTTPS requests
+        BindReadOnlyPaths = [
+          "/etc/resolv.conf" # DNS
+          "/etc/ssl/certs" # SSL for API calls
+          "/etc/static/openclaw" # The config and secrets we created
+          "/nix/store" # The read-only Nix store
+        ];
+
+        # 4. Kernel & Privilege restrictions
+        NoNewPrivileges = true;
+        CapabilityBoundingSet = ""; # No root-like capabilities
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        MemoryDenyWriteExecute = true;
+        LockPersonality = true;
+        ProtectControlGroups = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
         PrivateTmp = true;
+        PrivateDevices = true;
       };
     };
   };
