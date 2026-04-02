@@ -43,7 +43,6 @@ in
     # REQUIRES: nixos-rebuild --impure
     environment.etc."openclaw/openclaw-secrets".source = "/home/${myConfig.userName}/workspace/nixos/.secrets/openclaw-secrets";
 
-    # Secure Service Definition
     systemd.services.openclaw = {
       description = "OpenClaw AI Gateway";
       after = [ "network.target" ];
@@ -55,35 +54,15 @@ in
         User = "openclaw";
         Group = "openclaw";
 
-        # --- Advanced Hardening & Folder Restriction ---
+        ProtectSystem = "full";
+        ProtectHome = true;
 
-        # 1. Start with a completely empty filesystem view
-        ProtectSystem = "strict";
-        ProtectHome = "tmpfs"; # Hides /home entirely, even from the 'openclaw' user
+        StateDirectory = "openclaw";
+        ReadWritePaths = [ workspacePath ];
 
-        # 2. Grant access ONLY to specific paths
-        StateDirectory = "openclaw"; # Creates and grants RW to /var/lib/openclaw
-        ReadWritePaths = [
-          workspacePath
-          downloadsPath
-        ];
-
-        # 3. Necessary for the binary to run and make HTTPS requests
-        BindReadOnlyPaths = [
-          "/etc/resolv.conf" # DNS
-          "/etc/ssl/certs" # SSL for API calls
-          "/etc/static/openclaw" # The config and secrets we created
-          "/nix/store" # The read-only Nix store
-        ];
-
-        # Poke a hole in the tmpfs /home for the Downloads folder
-        BindPaths = [
-          downloadsPath
-        ];
-
-        # 4. Kernel & Privilege restrictions
+        # Kernel & Privilege restrictions
         NoNewPrivileges = true;
-        CapabilityBoundingSet = ""; # No root-like capabilities
+        CapabilityBoundingSet = "";
         RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
