@@ -2,7 +2,6 @@
 
 let
   cfg = config.services.openclaw;
-  workspacePath = "/var/lib/openclaw/workspace";
   downloadsPath = "/home/${myConfig.userName}/Downloads";
 in
 {
@@ -19,21 +18,18 @@ in
     };
     users.groups.openclaw = { };
 
-    # Write the config file (JSON format)
     environment.etc."openclaw/openclaw.json".text = builtins.toJSON {
       gateway = {
-        bind = "127.0.0.1"; # Loopback only for security
+        bind = "loopback";
         port = 18789;
         auth = {
           mode = "token";
           token = "\${OPENCLAW_GATEWAY_TOKEN}";
         };
-        workspace = workspacePath;
       };
       agents = {
         defaults = {
-          provider = "google";
-          model = "gemini-flash-lite-latest";
+          model = "google/gemini-flash-lite-latest";
         };
       };
     };
@@ -49,32 +45,17 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs-unstable.openclaw}/bin/openclaw serve --config /etc/openclaw/openclaw.json";
+        ExecStart = "${pkgs-unstable.openclaw}/bin/openclaw gateway";
         EnvironmentFile = "/etc/openclaw/openclaw-secrets";
+        Environment = [
+          "OPENCLAW_STATE_DIR=/var/lib/openclaw"
+          "OPENCLAW_CONFIG_PATH=/etc/openclaw/openclaw.json"
+        ];
         User = "openclaw";
         Group = "openclaw";
-
-        ProtectSystem = "full";
-        ProtectHome = true;
-
-        StateDirectory = "openclaw";
-        ReadWritePaths = [ workspacePath ];
-
-        # Kernel & Privilege restrictions
-        NoNewPrivileges = true;
-        CapabilityBoundingSet = "";
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        MemoryDenyWriteExecute = true;
-        LockPersonality = true;
-        ProtectControlGroups = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
+        ReadWritePaths = [ downloadsPath ];
       };
     };
+
   };
 }
