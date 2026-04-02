@@ -22,6 +22,7 @@ in
       gateway = {
         bind = "loopback";
         port = 18789;
+        mode = "local";
         auth = {
           mode = "token";
           token = "\${OPENCLAW_GATEWAY_TOKEN}";
@@ -54,6 +55,24 @@ in
         User = "openclaw";
         Group = "openclaw";
         ReadWritePaths = [ downloadsPath ];
+
+        ProtectSystem = "full";
+        ProtectHome = true;
+
+        # Kernel & Privilege restrictions
+        NoNewPrivileges = true;
+        CapabilityBoundingSet = "";
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" "AF_NETLINK" ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        # MemoryDenyWriteExecute = true; # incompatible with JIT (NodeJS, Java, Python, ...)
+        LockPersonality = true;
+        ProtectControlGroups = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
       };
     };
 
