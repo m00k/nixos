@@ -1,8 +1,9 @@
-{ config, pkgs, pkgs-unstable, lib, ... }:
+{ config, pkgs, pkgs-unstable, lib, myConfig, ... }:
 
 let
   cfg = config.services.openclaw;
   workspacePath = "/var/lib/openclaw/workspace";
+  downloadsPath = "/home/${myConfig.userName}/Downloads";
 in
 {
   options.services.openclaw = {
@@ -61,7 +62,10 @@ in
 
         # 2. Grant access ONLY to specific paths
         StateDirectory = "openclaw"; # Creates and grants RW to /var/lib/openclaw
-        ReadWritePaths = [ workspacePath ];
+        ReadWritePaths = [
+          workspacePath
+          downloadsPath
+        ];
 
         # 3. Necessary for the binary to run and make HTTPS requests
         BindReadOnlyPaths = [
@@ -69,6 +73,11 @@ in
           "/etc/ssl/certs" # SSL for API calls
           "/etc/static/openclaw" # The config and secrets we created
           "/nix/store" # The read-only Nix store
+        ];
+
+        # Poke a hole in the tmpfs /home for the Downloads folder
+        BindPaths = [
+          downloadsPath
         ];
 
         # 4. Kernel & Privilege restrictions
