@@ -33,7 +33,7 @@ in
       agents = {
         defaults = {
           provider = "google";
-          model = "gemini-1.5-flash-latest";
+          model = "gemini-flash-lite-latest";
         };
       };
     };
