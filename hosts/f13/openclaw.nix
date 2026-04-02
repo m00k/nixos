@@ -35,9 +35,6 @@ in
       };
     };
 
-    # Copy the secrets file into /etc/openclaw/openclaw-secrets
-    # NOTE: This makes the file world-readable in /nix/store
-    # REQUIRES: nixos-rebuild --impure
     environment.etc."openclaw/openclaw-secrets".source = "/home/${myConfig.userName}/workspace/nixos/.secrets/openclaw-secrets";
 
     systemd.services.openclaw = {
