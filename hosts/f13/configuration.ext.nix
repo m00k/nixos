@@ -1,13 +1,18 @@
 { config, lib, pkgs, pkgs-unstable, myConfig, ... }:
 
 {
+  imports = [
+    ./openclaw.nix
+  ];
+
   # extend system/packages here
   environment.systemPackages = (with pkgs; [
   ]) ++ (with pkgs-unstable; [
     claude-code
     gemini-cli
-    openclaw # see permittedInsecurePackages in flake.nix
   ]);
+
+  services.openclaw.enable = true;
 
 
   # no password when sudoing
