@@ -4,16 +4,22 @@ let
   cfg = config.services.openclaw;
   downloadsPath = "/home/${myConfig.userName}/Downloads";
   stateDir = "/var/lib/openclaw";
+  myPython = pkgs.python3.withPackages (ps: with ps; [
+    requests
+    beautifulsoup4
+  ]);
+  pythonInterpreter = "${myPython}/bin/python3";
 
   easynewsSearchScriptContent = builtins.readFile ./easynews_search_script.py;
-  easynewsSearchSkillContent = builtins.readFile ./easynews_search_skill.md;
+  easynewsSearchSkillContentTemplate = builtins.readFile ./easynews_search_skill.md;
+  easynewsSearchSkillContent = lib.replaceStrings
+    [ "@SCRIPT_PATH@" "@PYTHON_PATH@" ]
+    [ "${easynewsSearchScript}" "${pythonInterpreter}" ]
+    easynewsSearchSkillContentTemplate;
 
   # Create a derivation for the Python script so it lives in the Nix store
-  # This makes the script read-only and immutable.
   easynewsSearchScript = pkgs.writeText "easynews_search_script.py" easynewsSearchScriptContent;
-  # Process the Markdown to point to the store path of the script
-  # We use 'replaceStrings' to swap a placeholder in your MD with the real path.
-  easynewsSearchSkill = lib.replaceStrings [ "@SCRIPT_PATH@" ] [ "${easynewsSearchScript}" ] easynewsSearchSkillContent;
+  easynewsSearchSkill = pkgs.writeText "SKILL.md" easynewsSearchSkillContent;
 
   # Define the auth profile JSON
   googleApiKey = lib.removeSuffix "\n" (builtins.readFile "/home/${myConfig.userName}/workspace/nixos/.secrets/openclaw.google-api-key");
@@ -28,6 +34,13 @@ let
       };
     };
   };
+
+  # Create a single immutable directory containing both files
+  easynewsSkillDir = pkgs.runCommand "openclaw-skill-easynews" { } ''
+    mkdir -p $out
+    cp ${easynewsSearchSkill} $out/SKILL.md
+    cp ${easynewsSearchScript} $out/search_script.py
+  '';
 in
 {
   options.services.openclaw = {
@@ -40,6 +53,8 @@ in
       group = "openclaw";
       home = stateDir;
       createHome = true;
+      # This gives OpenClaw a valid shell to interact with the host and its skills!
+      shell = pkgs.bashInteractive;
     };
     users.groups.openclaw = { };
 
@@ -65,7 +80,11 @@ in
           workspace = "${stateDir}";
         };
       };
-      # This needs to be at the root level!
+      skills = {
+        load = {
+          extraDirs = [ "${stateDir}/skills" ];
+        };
+      };
       commands = {
         native = "auto";
         nativeSkills = "auto";
@@ -77,16 +96,12 @@ in
     environment.etc."openclaw/openclaw-secrets".source = "/home/${myConfig.userName}/workspace/nixos/.secrets/openclaw-secrets";
 
     systemd.tmpfiles.rules = [
-      # 1. Ensure directories exist
-      "d ${stateDir}/scripts 0750 openclaw openclaw -"
-      "d ${stateDir}/skills 0750 openclaw openclaw -"
-      "d ${stateDir}/agents/main/agent 0750 openclaw openclaw -"
+      # 1. Force remove any existing directory/debris first
+      "R ${stateDir}/skills/easynews - - - - -"
 
-      # 2. Force symlinks (L+) to the Nix Store versions of your files
-      # This effectively "locks" the agent's logic to your current Nix generation.
-      "L+ ${stateDir}/scripts/easynews_search_script.py - - - - ${easynewsSearchScript}"
-      "L+ ${stateDir}/skills/easynews_search_skill.md - - - - ${easynewsSearchSkill}"
-      "L+ ${stateDir}/agents/main/agent/auth-profiles.json - - - - ${pkgs.writeText "auth-profiles.json" agentAuthProfile}"
+      # 2. Create a symlink for the ENTIRE folder to the Nix Store
+      # This makes the folder and its contents immutable to OpenClaw
+      "L+ ${stateDir}/skills/easynews - - - - ${easynewsSkillDir}"
     ];
 
     systemd.services.openclaw = {
@@ -95,6 +110,8 @@ in
       wantedBy = [ "multi-user.target" ];
 
       path = with pkgs; [
+        bash
+        coreutils
         curl
         (python3.withPackages (ps: with ps; [ beautifulsoup4 requests ]))
       ];
@@ -109,8 +126,9 @@ in
         User = "openclaw";
         Group = "openclaw";
         ReadWritePaths = [ stateDir downloadsPath ];
+        BindReadOnlyPaths = [ "/nix/store" ]; # Explicitly allow the agent to read the store
 
-        ProtectSystem = "full";
+        ProtectSystem = "nodev"; # Less restrictive than "full", allows better store access
         ProtectHome = true;
 
         # Kernel & Privilege restrictions
