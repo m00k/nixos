@@ -48,7 +48,7 @@
       address = [ "10.111.108.13/32" ];
       privateKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.privateKey.nix";
       mtu = 1420;
-      dns = [ "1.1.1.1" ];
+      dns = [ "10.250.0.5" ];
       peers = [
         {
           publicKey = "jXLA+/Cs+/p3henZM/HQjr4JQQtjepQe90ELppIJPmM=";
