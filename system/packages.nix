@@ -11,7 +11,7 @@
     lf
     mktemp
     micro
-    neofetch
+    fastfetch
     nixpkgs-fmt
     ripgrep # rg
     xclip # wl-clipboard-x11
