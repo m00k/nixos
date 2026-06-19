@@ -6,6 +6,7 @@
     inkscape
     meld
   ]) ++ (with pkgs-unstable; [
+    codex
     vscode
   ]);
 
