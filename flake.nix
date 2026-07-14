@@ -27,9 +27,6 @@
             inherit (myConfig) system;
             config = {
               allowUnfree = true;
-              permittedInsecurePackages = [
-                "openclaw-2026.3.12"
-              ];
             };
           };
         in
