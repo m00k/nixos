@@ -5,6 +5,15 @@
     git
     inkscape
     meld
+
+    # CLI tooling
+    jq
+    yq-go # yq
+    python3
+    fd
+    bat
+    tree
+    gh
   ]) ++ (with pkgs-unstable; [
     codex
     vscode
