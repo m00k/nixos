@@ -8,7 +8,6 @@
     slack
     libreoffice
     azure-functions-core-tools
-    nodejs_22
     wireguard-tools
   ]) ++ (with pkgs-unstable; [
     claude-code

@@ -20,12 +20,6 @@
     in
     {
       devShells = forAllSystems ({ pkgs }: {
-        "18" = pkgs.mkShell {
-          packages = with pkgs; [
-            nodejs_18
-          ];
-          shellHook = shellHook;
-        };
         "20" = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_20
@@ -38,15 +32,15 @@
           ];
           shellHook = shellHook;
         };
-        "23" = pkgs.mkShell {
-          packages = with pkgs; [
-            nodejs_23
-          ];
-          shellHook = shellHook;
-        };
         "24" = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_24
+          ];
+          shellHook = shellHook;
+        };
+        "26" = pkgs.mkShell {
+          packages = with pkgs; [
+            nodejs_26
           ];
           shellHook = shellHook;
         };

@@ -5,8 +5,7 @@
     git
     inkscape
     meld
-
-    # CLI tooling
+    nodejs_24
     jq
     yq-go # yq
     python3
