@@ -56,8 +56,31 @@
   # Sync TTY (console) w/ keyboard choice
   console.useXkbConfig = true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # Printers - CUPS
+  services.printing = {
+    enable = true;
+    drivers = [ ]; # No HPLIP needed
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  # Optional, but recommended
+  #hardware.printers = {
+  #  ensurePrinters = [
+  #    {
+  #      name = "[NAME]";
+  #      location = "[LOCATION]";
+  #      deviceUri = "ipp://192.168.0.[xxx]/ipp/print";
+  #      model = "everywhere";
+  #    }
+  #  ];
+  #
+  #  ensureDefaultPrinter = "[NAME]";
+  #};
 
   # Enable sound with pipewire.
   # sound.enable = true; # disabled with 24.11.
