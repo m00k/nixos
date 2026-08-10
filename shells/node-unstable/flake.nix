@@ -22,7 +22,7 @@
       devShells = forAllSystems ({ pkgs }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
-            nodePackages_latest.nodejs
+            nodejs_latest
           ];
           shellHook = shellHook;
         };
