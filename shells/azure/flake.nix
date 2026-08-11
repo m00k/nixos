@@ -16,6 +16,10 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             azure-functions-core-tools
+            # func 4.8.0 targets net8.0, but nixpkgs only ships it a .NET 10 runtime
+            dotnetCorePackages.aspnetcore_8_0
+            azurite
+            nodejs_24
           ];
         };
       });
