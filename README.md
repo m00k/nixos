@@ -44,6 +44,7 @@ sudo nixos-rebuild switch --flake ./#$HOSTNAME
 sudo nixos-rebuild boot --flake ./#$HOSTNAME
 # Use --impure to escape pure evaluation mode (e.g. loading variables from files)
 sudo nixos-rebuild boot --flake ./#$HOSTNAME --impure
+# sudo nixos-rebuild switch --flake ./#$HOSTNAME --impure
 ```
 
 ### remove old generations

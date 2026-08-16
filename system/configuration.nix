@@ -71,18 +71,18 @@
   };
 
   # Optional, but recommended
-  #hardware.printers = {
-  #  ensurePrinters = [
-  #    {
-  #      name = "[NAME]";
-  #      location = "[LOCATION]";
-  #      deviceUri = "ipp://192.168.0.[xxx]/ipp/print";
-  #      model = "everywhere";
-  #    }
-  #  ];
-  #
-  #  ensureDefaultPrinter = "[NAME]";
-  #};
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        name = "HP_LaserJet_MFP_M28w";
+        location = "Home";
+        deviceUri = "ipp://192.168.0.154/ipp/print";
+        model = "everywhere";
+      }
+    ];
+
+    ensureDefaultPrinter = "HP_LaserJet_MFP_M28w";
+  };
 
   # Enable sound with pipewire.
   # sound.enable = true; # disabled with 24.11.
