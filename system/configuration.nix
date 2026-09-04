@@ -10,6 +10,8 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  # /boot is a 512M ESP and each kernel version costs ~76M there
+  boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = myConfig.hostName;
