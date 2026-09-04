@@ -7,6 +7,8 @@
     claude-code
     gemini-cli
     remmina
+    opencode
+    opencode-desktop
   ]);
 
   # no password when sudoing

@@ -15,6 +15,8 @@
     wireguard-tools
   ]) ++ (with pkgs-unstable; [
     claude-code
+    opencode
+    opencode-desktop
     gemini-cli
   ]);
 
