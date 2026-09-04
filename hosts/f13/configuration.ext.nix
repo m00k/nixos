@@ -7,7 +7,6 @@
     claude-code
     gemini-cli
     remmina
-    opencode
     opencode-desktop
   ]);
 

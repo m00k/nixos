@@ -3,6 +3,7 @@
 {
   imports = [
     ../home/home.nix
+    ../home/ai.nix
     ../home/browsers
     ../home/browsers/firefox-vanilla.nix # TODO: make mkOption
     ../home/dev.nix
