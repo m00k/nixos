@@ -128,6 +128,17 @@
     #  wget
   ];
 
+  # System-wide aliases (all users incl. root)
+  environment.shellAliases = {
+    la = "ls -lha";
+    ll = "ls -l";
+    ".." = "cd ..";
+    "..." = "cd ../..";
+    "...." = "cd ../../..";
+    # Trailing space makes bash expand aliases after sudo (e.g. `sudo ll`)
+    sudo = "sudo ";
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

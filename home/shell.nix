@@ -4,13 +4,7 @@
   programs = {
     bash = {
       enable = true;
-      shellAliases = {
-        la = "ls -lha";
-        ll = "ls -l";
-        ".." = "cd ..";
-        "..." = "cd ../..";
-        "...." = "cd ../../..";
-      };
+      # Aliases are defined system-wide in system/configuration.nix (environment.shellAliases)
     };
   };
 }
