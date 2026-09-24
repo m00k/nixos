@@ -19,6 +19,16 @@
     gemini-cli
   ]);
 
+  # Secrets are sourced at shell startup, not read at build time, so they never
+  # reach the world-readable /nix/store. The file lives in the git-ignored .secrets/.
+  # with worxn.env.sh:
+  # export FOO=...
+  environment.interactiveShellInit = ''
+    f=/home/${myConfig.userName}/workspace/nixos/.secrets/worxn.env.sh
+    [ -r "$f" ] && . "$f"
+    unset f
+  '';
+
   # no password when sudoing
   security.sudo.wheelNeedsPassword = false;
 
