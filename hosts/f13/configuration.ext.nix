@@ -30,4 +30,7 @@
       };
     };
   };
+
+  # turn off AMD ABM (Adaptive Backlight Management)
+  boot.kernelParams = [ "amdgpu.abmlevel=0" ];
 }
