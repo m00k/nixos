@@ -60,6 +60,11 @@
   networking.wg-quick.interfaces = {
     wg0 = {
       address = [ "10.111.108.13/32" ];
+      # VPN only tunnels IPv4; disable IPv6 while VPN is up so traffic can't bypass it
+      # (VPN doesn't carry IPv6 so we need to prevent 404s in the case of a DNS publishing AAAA records
+      # as the traffic would go out not from the allowlisted VPN address)
+      postUp = "${pkgs.procps}/bin/sysctl -w net.ipv6.conf.all.disable_ipv6=1";
+      preDown = "${pkgs.procps}/bin/sysctl -w net.ipv6.conf.all.disable_ipv6=0";
       privateKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.privateKey.nix";
       mtu = 1420;
       dns = [ "10.250.0.5" ];
