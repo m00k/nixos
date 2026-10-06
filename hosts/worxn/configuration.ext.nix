@@ -60,11 +60,6 @@
   networking.wg-quick.interfaces = {
     wg0 = {
       address = [ "10.111.108.13/32" ];
-      # VPN only tunnels IPv4; disable IPv6 while VPN is up so traffic can't bypass it
-      # (VPN doesn't carry IPv6 so we need to prevent 404s in the case of a DNS publishing AAAA records
-      # as the traffic would go out not from the allowlisted VPN address)
-      postUp = "${pkgs.procps}/bin/sysctl -w net.ipv6.conf.all.disable_ipv6=1";
-      preDown = "${pkgs.procps}/bin/sysctl -w net.ipv6.conf.all.disable_ipv6=0";
       privateKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.privateKey.nix";
       mtu = 1420;
       dns = [ "10.250.0.5" ];
@@ -72,7 +67,12 @@
         {
           publicKey = "jXLA+/Cs+/p3henZM/HQjr4JQQtjepQe90ELppIJPmM=";
           presharedKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.peers.presharedKey.nix";
-          allowedIPs = [ "0.0.0.0/0" ];
+          # VPN only tunnels IPv4. Routing ::/0 into the tunnel (without an IPv6 address)
+          # blackholes IPv6, so apps fall back to IPv4 via the allowlisted VPN egress instead
+          # of leaking IPv6 through the home connection (e.g. *.netlify.app deploy previews,
+          # which publish AAAA records). Unlike disabling IPv6 via sysctl in postUp, this
+          # survives suspend/resume and Wi-Fi changes, where NetworkManager re-enables IPv6.
+          allowedIPs = [ "0.0.0.0/0" "::/0" ];
           endpoint = builtins.readFile "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.peers.endpoint.nix";
           persistentKeepalive = 21;
         }
