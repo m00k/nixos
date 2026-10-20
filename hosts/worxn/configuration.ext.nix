@@ -63,6 +63,9 @@
       privateKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/wg.privateKey.nix";
       mtu = 1420;
       dns = [ "10.250.0.5" ];
+      # Fail IPv6 fast (ENETUNREACH) instead of silently dropping it in the tunnel,
+      # so clients fall back to IPv4 immediately rather than after a timeout
+      postUp = "${pkgs.iproute2}/bin/ip -6 route replace unreachable default table 51820";
       peers = [
         {
           publicKey = "jXLA+/Cs+/p3henZM/HQjr4JQQtjepQe90ELppIJPmM=";
