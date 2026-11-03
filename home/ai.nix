@@ -5,6 +5,7 @@ let
   # never enters the nix store (unlike builtins.readFile). Same idea as
   # wireguard's privateKeyFile. File content: the bare key, nothing else.
   openRouterKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/openRouter.api.key.nix";
+  geminiKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/gemini.key.nix";
 in
 {
   # https://pi.dev/ - no home-manager module, so package + auth.json by hand.
@@ -14,6 +15,7 @@ in
   home.packages = [ pkgs-unstable.pi-coding-agent ];
   home.file.".pi/agent/auth.json".text = builtins.toJSON {
     openrouter = { type = "api_key"; key = "!cat ${openRouterKeyFile}"; };
+    google = { type = "api_key"; key = "!cat ${geminiKeyFile}"; };
   };
 
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enable
