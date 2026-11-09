@@ -16,7 +16,6 @@
   ]) ++ (with pkgs-unstable; [
     claude-code
     opencode-desktop
-    gemini-cli
   ]);
 
   # Secrets are sourced at shell startup, not read at build time, so they never

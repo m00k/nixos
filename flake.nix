@@ -2,6 +2,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05"; # TODO: "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # TODO: unpin once codex builds on nixos-unstable again (aws-lc-sys: AWS_LC_SYS_USE_SYSTEM without system AWS-LC)
+    nixpkgs-codex.url = "github:NixOS/nixpkgs/4975466d324710c576dc11ad614684e6bd8cad8e"; # codex 0.156.1
     nixos-hardware.url = "github:NixOS/nixos-hardware/master"; # TODO: "github:NixOS/nixos-hardware";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05"; # TODO: "github:nix-community/home-manager";

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, myConfig, ... }:
+{ config, lib, pkgs, pkgs-unstable, inputs, myConfig, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -14,9 +14,11 @@
     tree
     gh
   ]) ++ (with pkgs-unstable; [
-    codex
     vscode
-  ]);
+  ]) ++ [
+    # pinned, see nixpkgs-codex in flake.nix
+    inputs.nixpkgs-codex.legacyPackages.${myConfig.system}.codex
+  ];
 
 
   programs.git = {

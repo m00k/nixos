@@ -5,7 +5,6 @@
   environment.systemPackages = (with pkgs; [
   ]) ++ (with pkgs-unstable; [
     claude-code
-    gemini-cli
     remmina
     opencode-desktop
   ]);
