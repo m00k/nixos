@@ -16,6 +16,8 @@
   ]) ++ (with pkgs-unstable; [
     vscode
     codex
+    ladybird # https://ladybird.org/
+    herdr # https://herdr.dev/ - tmux-like agent multiplexer
   ]);
 
 
