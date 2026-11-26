@@ -6,17 +6,25 @@ let
   # wireguard's privateKeyFile. File content: the bare key, nothing else.
   openRouterKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/openRouter.api.key.nix";
   geminiKeyFile = "/home/${myConfig.userName}/workspace/nixos/.secrets/gemini.key.nix";
+
+  # A `!`-prefixed key is a command pi runs on first use, so as above the key is
+  # read at runtime and never enters the nix store.
+  piAuth = pkgs.writeText "pi-auth.json" (builtins.toJSON {
+    openrouter = { type = "api_key"; key = "!cat ${openRouterKeyFile}"; };
+    google = { type = "api_key"; key = "!cat ${geminiKeyFile}"; };
+  });
 in
 {
   # https://pi.dev/ - no home-manager module, so package + auth.json by hand.
-  # A `!`-prefixed key is a command pi runs on first use, so as above the key is
-  # read at runtime and never enters the nix store. Read-only symlink: `/login`
-  # can't save credentials, which is fine as long as they all come from here.
+  # A real file, not a home.file symlink: pi takes `<resolved path>.lock` before
+  # reading credentials, which fails with EROFS inside /nix/store. Overwritten on
+  # every switch, so anything `/login` saves there is dropped; keep keys here.
   home.packages = [ pkgs-unstable.pi-coding-agent ];
-  home.file.".pi/agent/auth.json".text = builtins.toJSON {
-    openrouter = { type = "api_key"; key = "!cat ${openRouterKeyFile}"; };
-    google = { type = "api_key"; key = "!cat ${geminiKeyFile}"; };
-  };
+  home.activation.piAuth = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run mkdir -p "$HOME/.pi/agent"
+    run rm -f "$HOME/.pi/agent/auth.json"
+    run install -m 600 ${piAuth} "$HOME/.pi/agent/auth.json"
+  '';
 
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enable
   # config per https://marktguru.monday.com/docs/5103250375 (OpenRouter + GLM 5.3 Flash)
