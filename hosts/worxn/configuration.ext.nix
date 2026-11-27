@@ -1,10 +1,6 @@
 { config, lib, pkgs, pkgs-unstable, myConfig, ... }:
 
 {
-  imports = [
-    ./neo4j.nix
-  ];
-
   # extend system/packages here
   environment.systemPackages = (with pkgs; [
     micro
